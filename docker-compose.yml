@@ -11,9 +11,9 @@ services:
       - backend
     #########################################
     ## Uncomment these lines to start proxy with a config.yaml file ##
-     volumes:
+    volumes:
       - ./config.yaml:/app/config.yaml <<- this is missing in the docker-compose file currently
-     command:
+    command:
       - "--config=/app/config.yaml"
     ##############################################
  #   ports:
