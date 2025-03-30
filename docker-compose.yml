@@ -19,7 +19,7 @@ services:
  #   ports:
  #     - "4000:4000" # Map the container port to the host, change the host port if necessary
     environment:
-        DATABASE_URL: "postgresql://litellm:${POSTGRES_PASSWORD}@172.55.55.50:5432/postgres"
+        DATABASE_URL: "postgresql://litellm:${POSTGRES_PASSWORD}@172.55.55.50:5432/postgres?schema=litellm_schema"
         STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
     env_file:
       - .env # Load local .env file
