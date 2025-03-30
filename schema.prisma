@@ -1,6 +1,7 @@
 datasource client {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schema   = "litellm_schema"  // Add this line
 }
 
 generator client {
