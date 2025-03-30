@@ -29,6 +29,15 @@ services:
       timeout: 10s   # Health check command times out after 10 seconds
       retries: 3     # Retry up to 3 times if health check fails
       start_period: 40s  # Wait 40 seconds after container start before beginning health checks
+    labels: # (optional only for using traefik) ------>
+      - "traefik.enable=true"
+      - "traefik.http.routers.litellm.entrypoints=websecure"
+      - "traefik.http.routers.litellm.rule=Host(`litellm.backend.neurolearninglabs.com`)" # Replace with your desired hostname
+      - "traefik.http.routers.litellm.tls=true"
+      - "traefik.http.routers.litellm.tls.certresolver=cloudflare" # Replace with your cert resolver name
+      - "traefik.http.services.litellm.loadbalancer.server.port=4000"    
+      - "traefik.docker.network=dokploy-network" # Use the same network as Traefik
+      - "traefik.http.routers.litellm.service=litellm"        
 ####################################################################################################################################################################
  # db:
  #   image: postgres:16
