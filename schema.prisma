@@ -28,7 +28,7 @@ model LiteLLM_BudgetTable {
   team_membership      LiteLLM_TeamMembership[] // budgets of Users within a Team
   organization_membership LiteLLM_OrganizationMembership[] // budgets of Users within an Organization
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_CredentialsTable {
@@ -41,7 +41,7 @@ model LiteLLM_CredentialsTable {
   updated_at       DateTime @default(now()) @updatedAt @map("updated_at")
   updated_by       String
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_ProxyModelTable {
@@ -54,7 +54,7 @@ model LiteLLM_ProxyModelTable {
   updated_at      DateTime @default(now()) @updatedAt @map("updated_at")
   updated_by      String
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_OrganizationTable {
@@ -75,7 +75,7 @@ model LiteLLM_OrganizationTable {
   keys              LiteLLM_VerificationToken[]
   members           LiteLLM_OrganizationMembership[] @relation("OrganizationToMembership")
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_ModelTable {
@@ -87,7 +87,7 @@ model LiteLLM_ModelTable {
   updated_by  String
   team        LiteLLM_TeamTable?
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_TeamTable {
@@ -115,7 +115,7 @@ model LiteLLM_TeamTable {
   litellm_organization_table LiteLLM_OrganizationTable? @relation(fields: [organization_id], references: [organization_id])
   litellm_model_table LiteLLM_ModelTable? @relation(fields: [model_id], references: [id])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_UserTable {
@@ -150,7 +150,7 @@ model LiteLLM_UserTable {
   invitations_updated LiteLLM_InvitationLink[] @relation("UpdatedBy")
   invitations_user LiteLLM_InvitationLink[] @relation("UserId")
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_VerificationToken {
@@ -186,7 +186,7 @@ model LiteLLM_VerificationToken {
   litellm_budget_table LiteLLM_BudgetTable? @relation(fields: [budget_id], references: [budget_id])
   litellm_organization_table LiteLLM_OrganizationTable? @relation(fields: [organization_id], references: [organization_id])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_EndUserTable {
@@ -199,14 +199,14 @@ model LiteLLM_EndUserTable {
   litellm_budget_table LiteLLM_BudgetTable? @relation(fields: [budget_id], references: [budget_id])
   blocked            Boolean @default(false)
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_Config {
   param_name String @id
   param_value Json?
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_SpendLogs {
@@ -239,7 +239,7 @@ model LiteLLM_SpendLogs {
   @@index([startTime])
   @@index([end_user])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_ErrorLogs {
@@ -255,7 +255,7 @@ model LiteLLM_ErrorLogs {
   exception_string    String @default("")
   status_code         String @default("")
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_UserNotifications {
@@ -265,7 +265,7 @@ model LiteLLM_UserNotifications {
   justification       String
   status              String
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_TeamMembership {
@@ -277,7 +277,7 @@ model LiteLLM_TeamMembership {
 
   @@id([user_id, team_id])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_OrganizationMembership {
@@ -296,7 +296,7 @@ model LiteLLM_OrganizationMembership {
   @@id([user_id, organization_id])
   @@unique([user_id, organization_id])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_InvitationLink {
@@ -314,7 +314,7 @@ model LiteLLM_InvitationLink {
   liteLLM_user_table_created LiteLLM_UserTable @relation("CreatedBy", fields: [created_by], references: [user_id])
   liteLLM_user_table_updated LiteLLM_UserTable @relation("UpdatedBy", fields: [updated_by], references: [user_id])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_AuditLog {
@@ -328,7 +328,7 @@ model LiteLLM_AuditLog {
   before_value       Json?
   updated_values     Json?
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_DailyUserSpend {
@@ -346,7 +346,7 @@ model LiteLLM_DailyUserSpend {
 
   @@unique([user_id, date])
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 model LiteLLM_CronJob {
@@ -356,7 +356,7 @@ model LiteLLM_CronJob {
   last_updated       DateTime @default(now()) // Timestamp for the last update of the cron job record
   ttl                DateTime // Time when the leader's lease expires
 
-  @@schema("litellm")
+  @@schema("litellm_schema")
 }
 
 enum JobStatus {
