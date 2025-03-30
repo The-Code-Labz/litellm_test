@@ -5,6 +5,7 @@ datasource client {
 
 generator client {
   provider = "prisma-client-py"
+  previewFeatures = ["multiSchema"]
 }
 
 model LiteLLM_BudgetTable {
